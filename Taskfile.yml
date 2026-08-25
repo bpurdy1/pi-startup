@@ -7,17 +7,12 @@ vars:
 
 tasks:
   default:
-    desc: Print a greeting message
+    desc: scripts for setting up pi
     cmds:
-      - chmod +x ./setup-unattended-upgrades.sh
-      - chmod +x ./apk-setup-install.sh
-      - chmod +x ./fail2ban-install.sh
-      - chmod +x ./log2ram-install.sh
-      - chmod +x ./setup-unattended-upgrades.sh
-
-  run:
+      - ls
+  install:
     cmds:
-      - ./setup-unattended-upgrades.sh
       - ./apk-setup-install.sh
       - ./fail2ban-install.sh
       - ./log2ram-install.sh
+      - ./setup-unattended-upgrades.sh
