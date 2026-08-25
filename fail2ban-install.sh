@@ -31,7 +31,15 @@ echo "=== 3. Enabling and Restarting Fail2ban ==="
 systemctl enable --now fail2ban
 systemctl restart fail2ban
 
+# Wait up to 5 seconds for the socket file to exist
+echo "Waiting for fail2ban socket..."
+count=0
+while [ ! -S /var/run/fail2ban/fail2ban.sock ] && [ $count -lt 5 ]; do
+    sleep 1
+    ((count++))
+done
+
 echo "=== 4. Verifying SSH Jail Status ==="
-fail2ban-client status sshd || true
+fail2ban-client status sshd
 
 echo "=== Fail2ban installation and setup complete! ==="
