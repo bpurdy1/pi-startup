@@ -2,7 +2,7 @@
 set -e
 
 if [ "$EUID" -ne 0 ]; then
-  echo "Error: Please run as root (e.g., sudo ./setup-log2ram.sh)"
+  echo "Error: Please run as root (e.g., sudo ./log2ram-install.sh)"
   exit 1
 fi
 
@@ -13,8 +13,8 @@ apt-get update -q
 apt-get install -y -q curl gnupg rsync
 
 echo "=== 2. Adding Official Azlux log2ram Repository & Keyring ==="
-# Download official GPG key directly from GitHub raw repository
-curl -fsSL https://raw.githubusercontent.com/azlux/log2ram/master/key.gpg | gpg --dearmor -o /usr/share/keyrings/log2ram-archive-keyring.gpg --yes
+# Download official GPG key directly from Azlux
+curl -fsSL https://azlux.fr/repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/log2ram-archive-keyring.gpg --yes
 
 # Dynamically extract current OS codename (e.g., bookworm, trixie)
 CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME")
