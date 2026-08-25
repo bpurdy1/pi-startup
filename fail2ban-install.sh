@@ -40,6 +40,6 @@ while [ ! -S /var/run/fail2ban/fail2ban.sock ] && [ $count -lt 5 ]; do
 done
 
 echo "=== 4. Verifying SSH Jail Status ==="
-fail2ban-client status sshd
+sudo fail2ban-client status sshd
 
 echo "=== Fail2ban installation and setup complete! ==="
