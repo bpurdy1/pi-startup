@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  GREETING: Hello, world!
+
+tasks:
+  default:
+    desc: Print a greeting message
+    cmds:
+      - chmod +x ./setup-unattended-upgrades.sh
+      - chmod +x ./apk-setup-install.sh
+      - chmod +x ./fail2ban-install.sh
+      - chmod +x ./log2ram-install.sh
+      - chmod +x ./setup-unattended-upgrades.sh
+
+  run:
+    cmds:
+      - ./setup-unattended-upgrades.sh
+      - ./apk-setup-install.sh
+      - ./fail2ban-install.sh
+      - ./log2ram-install.sh
