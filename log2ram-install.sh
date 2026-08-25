@@ -12,9 +12,19 @@ echo "=== 1. Ensuring Prerequisites Are Installed ==="
 apt-get update -q
 apt-get install -y -q curl gnupg rsync
 
-echo "=== 2. Adding Official log2ram Repository & Keyring ==="
-curl -sS https://geek-cookbook.github.io/log2ram/KEY.gpg | gpg --dearmor -o /usr/share/keyrings/log2ram-archive-keyring.gpg --yes
-echo "deb [signed-by=/usr/share/keyrings/log2ram-archive-keyring.gpg] https://geek-cookbook.github.io/log2ram/ deb/" | tee /etc/apt/sources.list.d/log2ram.list > /dev/null
+echo "=== 2. Adding Official Azlux log2ram Repository & Keyring ==="
+# Download official GPG key directly from GitHub raw repository
+curl -fsSL https://raw.githubusercontent.com/azlux/log2ram/master/key.gpg | gpg --dearmor -o /usr/share/keyrings/log2ram-archive-keyring.gpg --yes
+
+# Dynamically extract current OS codename (e.g., bookworm, trixie)
+CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME")
+
+# Fallback to bookworm if codename is blank
+if [ -z "$CODENAME" ]; then
+  CODENAME="bookworm"
+fi
+
+echo "deb [signed-by=/usr/share/keyrings/log2ram-archive-keyring.gpg] http://packages.azlux.fr/debian/ ${CODENAME} main" | tee /etc/apt/sources.list.d/log2ram.list > /dev/null
 
 echo "=== 3. Installing log2ram Package ==="
 apt-get update -q
